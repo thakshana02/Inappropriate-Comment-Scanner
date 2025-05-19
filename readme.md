@@ -74,7 +74,7 @@ The system consists of three main components:
 
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/inappropriate-comment-scanner.git
+git clone https://github.com/thakshana02/Inappropriate-Comment-Scanner.git
 cd inappropriate-comment-scanner
 ```
 
