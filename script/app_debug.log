@@ -1,0 +1,146 @@
+2025-05-20 02:11:58,283 - __main__ - INFO - Model directory: D:\Projects\ML Projects\Inappropriate Comment Scanner\Dataset\saved model
+2025-05-20 02:11:58,283 - __main__ - INFO - Initializing ToxicCommentAnalyzer...
+2025-05-20 02:11:58,283 - __main__ - INFO - Loading SVM model...
+2025-05-20 02:11:58,283 - __main__ - DEBUG - Model path: D:\Projects\ML Projects\Inappropriate Comment Scanner\Dataset\saved model\svm_tfidf_model.pkl
+2025-05-20 02:11:58,283 - __main__ - DEBUG - Model path exists: True
+2025-05-20 02:11:58,642 - __main__ - INFO - SVM model loaded successfully
+2025-05-20 02:11:58,642 - __main__ - INFO - Loading vectorizer...
+2025-05-20 02:11:58,669 - __main__ - DEBUG - Vectorizer path: D:\Projects\ML Projects\Inappropriate Comment Scanner\Dataset\saved model\tfidf_vectorizer.pkl
+2025-05-20 02:11:58,670 - __main__ - DEBUG - Vectorizer path exists: True
+2025-05-20 02:11:58,678 - __main__ - INFO - Vectorizer loaded successfully
+2025-05-20 02:11:58,678 - __main__ - INFO - Loading label columns...
+2025-05-20 02:11:58,678 - __main__ - DEBUG - Labels path: D:\Projects\ML Projects\Inappropriate Comment Scanner\Dataset\saved model\label_cols.pkl
+2025-05-20 02:11:58,678 - __main__ - DEBUG - Labels path exists: True
+2025-05-20 02:11:58,679 - __main__ - INFO - Label columns loaded successfully
+2025-05-20 02:11:58,680 - __main__ - INFO - Models loaded successfully. Starting web server...
+2025-05-20 02:11:58,680 - __main__ - INFO - Open your browser and go to: http://localhost:5000
+2025-05-20 02:11:58,685 - werkzeug - WARNING -  * Debugger is active!
+2025-05-20 02:11:58,691 - werkzeug - INFO -  * Debugger PIN: 464-558-268
+2025-05-20 02:12:00,024 - werkzeug - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-05-20 02:12:00,024 - werkzeug - INFO -  * Running on http://192.168.1.2:5000/ (Press CTRL+C to quit)
+2025-05-20 02:12:02,250 - __main__ - INFO - Home page requested
+2025-05-20 02:12:02,251 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:02] "GET / HTTP/1.1" 200 -
+2025-05-20 02:12:02,252 - __main__ - INFO - Home page requested
+2025-05-20 02:12:02,252 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:02] "GET / HTTP/1.1" 200 -
+2025-05-20 02:12:04,267 - __main__ - INFO - Analyze endpoint called
+2025-05-20 02:12:04,268 - __main__ - INFO - Analyzing text: cas...
+2025-05-20 02:12:04,268 - __main__ - INFO - Analyzing text: cas...
+2025-05-20 02:12:04,268 - __main__ - DEBUG - Cleaning text: cas...
+2025-05-20 02:12:04,268 - __main__ - DEBUG - Cleaned text: cas...
+2025-05-20 02:12:04,269 - __main__ - DEBUG - Transforming text to features...
+2025-05-20 02:12:04,269 - __main__ - ERROR - Error during analysis: idf vector is not fitted
+2025-05-20 02:12:04,277 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\Projects\ML Projects\Inappropriate Comment Scanner\script\app.py", line 137, in analyze_text
+    features = self.vectorizer.transform([cleaned_text])
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 2102, in transform
+    return self._tfidf.transform(X, copy=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 1674, in transform
+    check_is_fitted(self, attributes=["idf_"], msg="idf vector is not fitted")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\utils\validation.py", line 1222, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
+sklearn.exceptions.NotFittedError: idf vector is not fitted
+
+2025-05-20 02:12:04,277 - __main__ - ERROR - Error in analysis: idf vector is not fitted
+2025-05-20 02:12:04,278 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:04] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2025-05-20 02:12:04,616 - __main__ - INFO - Analyze endpoint called
+2025-05-20 02:12:04,616 - __main__ - INFO - Analyzing text: cas...
+2025-05-20 02:12:04,616 - __main__ - INFO - Analyzing text: cas...
+2025-05-20 02:12:04,616 - __main__ - DEBUG - Cleaning text: cas...
+2025-05-20 02:12:04,616 - __main__ - DEBUG - Cleaned text: cas...
+2025-05-20 02:12:04,616 - __main__ - DEBUG - Transforming text to features...
+2025-05-20 02:12:04,617 - __main__ - ERROR - Error during analysis: idf vector is not fitted
+2025-05-20 02:12:04,617 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\Projects\ML Projects\Inappropriate Comment Scanner\script\app.py", line 137, in analyze_text
+    features = self.vectorizer.transform([cleaned_text])
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 2102, in transform
+    return self._tfidf.transform(X, copy=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 1674, in transform
+    check_is_fitted(self, attributes=["idf_"], msg="idf vector is not fitted")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\utils\validation.py", line 1222, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
+sklearn.exceptions.NotFittedError: idf vector is not fitted
+
+2025-05-20 02:12:04,617 - __main__ - ERROR - Error in analysis: idf vector is not fitted
+2025-05-20 02:12:04,618 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:04] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2025-05-20 02:12:15,915 - __main__ - INFO - Analyze endpoint called
+2025-05-20 02:12:15,916 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:15,916 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:15,916 - __main__ - DEBUG - Cleaning text: have a good weekend...
+2025-05-20 02:12:15,916 - __main__ - DEBUG - Cleaned text: good weekend...
+2025-05-20 02:12:15,916 - __main__ - DEBUG - Transforming text to features...
+2025-05-20 02:12:15,917 - __main__ - ERROR - Error during analysis: idf vector is not fitted
+2025-05-20 02:12:15,917 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\Projects\ML Projects\Inappropriate Comment Scanner\script\app.py", line 137, in analyze_text
+    features = self.vectorizer.transform([cleaned_text])
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 2102, in transform
+    return self._tfidf.transform(X, copy=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 1674, in transform
+    check_is_fitted(self, attributes=["idf_"], msg="idf vector is not fitted")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\utils\validation.py", line 1222, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
+sklearn.exceptions.NotFittedError: idf vector is not fitted
+
+2025-05-20 02:12:15,918 - __main__ - ERROR - Error in analysis: idf vector is not fitted
+2025-05-20 02:12:15,918 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:15] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2025-05-20 02:12:18,145 - __main__ - INFO - Analyze endpoint called
+2025-05-20 02:12:18,146 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:18,146 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:18,146 - __main__ - DEBUG - Cleaning text: have a good weekend...
+2025-05-20 02:12:18,146 - __main__ - DEBUG - Cleaned text: good weekend...
+2025-05-20 02:12:18,146 - __main__ - DEBUG - Transforming text to features...
+2025-05-20 02:12:18,147 - __main__ - ERROR - Error during analysis: idf vector is not fitted
+2025-05-20 02:12:18,147 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\Projects\ML Projects\Inappropriate Comment Scanner\script\app.py", line 137, in analyze_text
+    features = self.vectorizer.transform([cleaned_text])
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 2102, in transform
+    return self._tfidf.transform(X, copy=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 1674, in transform
+    check_is_fitted(self, attributes=["idf_"], msg="idf vector is not fitted")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\utils\validation.py", line 1222, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
+sklearn.exceptions.NotFittedError: idf vector is not fitted
+
+2025-05-20 02:12:18,202 - __main__ - ERROR - Error in analysis: idf vector is not fitted
+2025-05-20 02:12:18,202 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:18] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2025-05-20 02:12:20,347 - __main__ - INFO - Analyze endpoint called
+2025-05-20 02:12:20,348 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:20,348 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:20,348 - __main__ - DEBUG - Cleaning text: have a good weekend...
+2025-05-20 02:12:20,348 - __main__ - DEBUG - Cleaned text: good weekend...
+2025-05-20 02:12:20,348 - __main__ - DEBUG - Transforming text to features...
+2025-05-20 02:12:20,349 - __main__ - ERROR - Error during analysis: idf vector is not fitted
+2025-05-20 02:12:20,349 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\Projects\ML Projects\Inappropriate Comment Scanner\script\app.py", line 137, in analyze_text
+    features = self.vectorizer.transform([cleaned_text])
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 2102, in transform
+    return self._tfidf.transform(X, copy=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 1674, in transform
+    check_is_fitted(self, attributes=["idf_"], msg="idf vector is not fitted")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\utils\validation.py", line 1222, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
+sklearn.exceptions.NotFittedError: idf vector is not fitted
+
+2025-05-20 02:12:20,350 - __main__ - ERROR - Error in analysis: idf vector is not fitted
+2025-05-20 02:12:20,350 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:20] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2025-05-20 02:12:20,691 - __main__ - INFO - Analyze endpoint called
+2025-05-20 02:12:20,692 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:20,692 - __main__ - INFO - Analyzing text: have a good weekend...
+2025-05-20 02:12:20,692 - __main__ - DEBUG - Cleaning text: have a good weekend...
+2025-05-20 02:12:20,692 - __main__ - DEBUG - Cleaned text: good weekend...
+2025-05-20 02:12:20,692 - __main__ - DEBUG - Transforming text to features...
+2025-05-20 02:12:20,693 - __main__ - ERROR - Error during analysis: idf vector is not fitted
+2025-05-20 02:12:20,693 - __main__ - ERROR - Traceback (most recent call last):
+  File "D:\Projects\ML Projects\Inappropriate Comment Scanner\script\app.py", line 137, in analyze_text
+    features = self.vectorizer.transform([cleaned_text])
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 2102, in transform
+    return self._tfidf.transform(X, copy=False)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\feature_extraction\text.py", line 1674, in transform
+    check_is_fitted(self, attributes=["idf_"], msg="idf vector is not fitted")
+  File "C:\Users\User\AppData\Local\Programs\Python\Python38\lib\site-packages\sklearn\utils\validation.py", line 1222, in check_is_fitted
+    raise NotFittedError(msg % {"name": type(estimator).__name__})
+sklearn.exceptions.NotFittedError: idf vector is not fitted
+
+2025-05-20 02:12:20,694 - __main__ - ERROR - Error in analysis: idf vector is not fitted
+2025-05-20 02:12:20,694 - werkzeug - INFO - 127.0.0.1 - - [20/May/2025 02:12:20] "[35m[1mPOST /analyze HTTP/1.1[0m" 500 -
+2025-05-20 02:14:42,498 - werkzeug - INFO -  * Detected change in 'D:\\Projects\\ML Projects\\Inappropriate Comment Scanner\\script\\app.py', reloading
