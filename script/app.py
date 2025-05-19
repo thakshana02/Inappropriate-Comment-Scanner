@@ -1,3 +1,4 @@
+# app_fixed_enhanced.py - Fixed version with sample text selector
 
 from flask import Flask, render_template, request, jsonify
 import os
@@ -105,14 +106,14 @@ def direct_classification(text):
         "word_scores": {}
     }
 
-# HTML template as a string
+# HTML template with sample text selector
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inappropriate Comment Scanner (Fixed Version)</title>
+    <title>Inappropriate Comment Scanner</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -120,64 +121,161 @@ HTML_TEMPLATE = """
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #f5f5f5;
         }
         h1 {
             color: #333;
             text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .examples {
+            margin-bottom: 15px;
+        }
+        .examples select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            width: 100%;
         }
         textarea {
             width: 100%;
-            height: 100px;
+            height: 120px;
             padding: 10px;
-            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
         }
         button {
-            padding: 10px 15px;
             background-color: #4CAF50;
             color: white;
+            padding: 10px 15px;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
             margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-secondary {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        .button-secondary:hover {
+            background-color: #e0e0e0;
         }
         .result {
             margin-top: 20px;
             padding: 15px;
             border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
             display: none;
         }
+        .result-heading {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
         .toxic {
-            color: red;
+            color: #d32f2f;
             font-weight: bold;
         }
         .non-toxic {
-            color: green;
+            color: #388e3c;
             font-weight: bold;
         }
         .loading {
             display: none;
-            margin-top: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .category-item {
+            margin-bottom: 5px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
         }
     </style>
 </head>
 <body>
-    <h1>Inappropriate Comment Scanner (Fixed Version)</h1>
+    <h1>Inappropriate Comment Scanner</h1>
     
-    <div>
-        <p>Enter a comment to analyze for toxic content:</p>
+    <div class="container">
+        <div class="examples">
+            <label for="example-select">Examples:</label>
+            <select id="example-select">
+                <option value="">Select an example...</option>
+                <option value="This is a normal comment about the weather.">Normal comment about weather</option>
+                <option value="I appreciate your thoughtful response to my question.">Polite appreciation</option>
+                <option value="You're such a moron, only an idiot would think that.">Insulting comment</option>
+                <option value="Go kill yourself, nobody likes you anyway.">Threatening comment</option>
+                <option value="People like you shouldn't be allowed to vote.">Subtle toxic comment</option>
+                <option value="This product is terrible and the company is a scam.">Negative but not toxic</option>
+                <option value="I completely disagree with everything you said.">Disagreement</option>
+                <option value="F*** off with that nonsense, you stupid jerk.">Explicit language</option>
+                <option value="Women are too emotional to be in leadership positions.">Gender bias</option>
+                <option value="All people from that country are criminals.">Xenophobic comment</option>
+            </select>
+        </div>
+        
         <textarea id="comment-input" placeholder="Enter your comment here..."></textarea>
+        
         <div>
             <button id="analyze-btn">Analyze Comment</button>
-            <button id="clear-btn">Clear</button>
+            <button id="clear-btn" class="button-secondary">Clear</button>
         </div>
         
-        <div class="loading" id="loading">Analyzing...</div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing comment...</p>
+        </div>
         
         <div class="result" id="result">
-            <div><strong>Overall:</strong> <span id="overall-result"></span></div>
-            <div style="margin-top: 10px;"><strong>Categories:</strong></div>
-            <div id="categories-result" style="margin-left: 15px;"></div>
+            <div class="result-heading">Analysis Result</div>
+            
+            <div>
+                <strong>Overall:</strong> 
+                <span id="overall-result"></span>
+            </div>
+            
+            <div style="margin-top: 10px;">
+                <strong>Categories:</strong>
+                <div id="categories-result" style="margin-left: 15px;"></div>
+            </div>
+            
             <div id="error-message" style="color: red; margin-top: 10px;"></div>
         </div>
+    </div>
+    
+    <div class="footer">
+        <p>This tool analyzes text for toxic content. Words highlighted in red may contribute to toxicity.</p>
     </div>
     
     <script>
@@ -185,11 +283,19 @@ HTML_TEMPLATE = """
             const commentInput = document.getElementById('comment-input');
             const analyzeBtn = document.getElementById('analyze-btn');
             const clearBtn = document.getElementById('clear-btn');
+            const exampleSelect = document.getElementById('example-select');
             const resultDiv = document.getElementById('result');
             const overallResult = document.getElementById('overall-result');
             const categoriesResult = document.getElementById('categories-result');
             const loadingDiv = document.getElementById('loading');
             const errorMessage = document.getElementById('error-message');
+            
+            // Handle example selection
+            exampleSelect.addEventListener('change', function() {
+                if (this.value) {
+                    commentInput.value = this.value;
+                }
+            });
             
             analyzeBtn.addEventListener('click', async function() {
                 const text = commentInput.value.trim();
@@ -236,7 +342,12 @@ HTML_TEMPLATE = """
                     }
                     
                     if (toxicCategories.length > 0) {
-                        categoriesResult.textContent = toxicCategories.join(', ');
+                        toxicCategories.forEach(category => {
+                            const categoryItem = document.createElement('div');
+                            categoryItem.className = 'category-item';
+                            categoryItem.textContent = category;
+                            categoriesResult.appendChild(categoryItem);
+                        });
                     } else {
                         categoriesResult.textContent = 'None';
                     }
@@ -255,6 +366,7 @@ HTML_TEMPLATE = """
             
             clearBtn.addEventListener('click', function() {
                 commentInput.value = '';
+                exampleSelect.value = '';
                 resultDiv.style.display = 'none';
             });
         });
